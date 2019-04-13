@@ -1,6 +1,6 @@
 # @particular./sync-shipengine-to-zendesk
 
-[![npm version](https://badge.fury.io/js/%40particular.%2Fsync-shipengine-to-moltin.svg)](https://badge.fury.io/js/%40particular.%2Fsync-shipengine-to-moltin)
+[![npm version](https://img.shields.io/npm/v/@particular./sync-shipengine-to-zendesk.svg)](https://www.npmjs.com/package/@particular./sync-shipengine-to-zendesk) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![CircleCI](https://circleci.com/gh/uniquelyparticular/sync-shipengine-to-zendesk.svg?style=svg)](https://circleci.com/gh/uniquelyparticular/sync-shipengine-to-zendesk)
 
 > Add a Zendesk Sunshine Event whenever a Shipping Status change is triggered in ShipEngine
 
@@ -54,9 +54,9 @@ Make a note of the https `ngrok URL` provided.
 
 Next head over to the ShipEngine [API Management>Webhooks](https://app.shipengine.com/#/portal/apimanagement) area, add a new webhook with the following details:
 
-| Events             | Webhook URL        | Status |
-| ------------------ | ------------------ | ------ |
-| Any tracking event | `ngrok URL` above_ |   On   |
+| Events             | Webhook URL         | Status |
+| ------------------ | ------------------- | ------ |
+| Any tracking event | `ngrok URL` above\_ | On     |
 
 ## 🚀 Deploy
 

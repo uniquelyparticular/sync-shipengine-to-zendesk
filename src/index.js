@@ -32,62 +32,50 @@ module.exports = cors(async (req, res) => {
   }
 
   /*
-  "carrier": "usps",
-  "tracking_number": "9205590164917312751089",
-  "address_from": {
-    "city": "Las Vegas",
-    "state": "NV",
-    "zip": "89101",
-    "country": "US"
-  },
-  "address_to": {
-    "city": "Spotsylvania",
-    "state": "VA",
-    "zip": "22551",
-    "country": "US"
-  },
-  "transaction": "1275c67d754f45bf9d6e4d7a3e205314",
-  "original_eta": "2016-07-23T00:00:00Z",
-  "eta": "2016-07-23T00:00:00Z",
-  "servicelevel": {
-    "token": "usps_priority",
-    "name": "Priority Mail"
-  },
-  "metadata": null,
-  "tracking_status": {
-    "object_created": "2016-07-23T20:35:26.129Z",
-    "object_updated": "2016-07-23T20:35:26.129Z",
-    "object_id": "ce48ff3d52a34e91b77aa98370182624",
-    "status": "DELIVERED",
-    "status_details": "Your shipment has been delivered at the destination mailbox.",
-    "status_date": "2016-07-23T13:03:00Z",
-    "location": {
-      "city": "Spotsylvania",
-      "state": "VA",
-      "zip": "22551",
-      "country": "US"
-    }
-  },
+{
+  "resource_url": "https://api.shipengine.com/v1/tracking/usps/9361269903502070406152",
+  "resource_type": "API_TRACK",
+  "data": {
+    "links": {
+      "self": {
+        "href": "https://api.shipengine.com/v1/tracking/usps/9361269903502070406152"
+      },
+      "label": null
+    },
+    "tracking_number": "9361269903502070406152",
+    "status_code": "DE",
+    "status_description": "Delivered",
+    "carrier_status_code": "01",
+    "carrier_status_description": "Your item was picked up at the post office...",
+    "shipped_date": "2019-04-16T05:00:00.000Z",
+    "estimated_delivery_date": null,
+    "actual_delivery_date": "2019-04-17T02:33:38.252Z",
+    "exception_description": null,
+    "events": [
+      {
+        "event_date": "2019-04-17T02:33:38.252Z",
+        "description": "Delivered, Individual Picked Up at Post Office",
+        "city_locality": "AUSTIN",
+        "state_province": "TX",
+        "postal_code": "78721",
+        "country_code": "",
+        "company_name": "",
+        "signer": ""
+      }
+    ]
+  }
+}
   */
 
   try {
     const tracking_update = await json(req)
     const {
       data: {
-        carrier,
         tracking_number,
-        servicelevel: { name: service_type },
-        eta,
-        tracking_status: {
-          status,
-          status_details,
-          status_date,
-          location: {
-            city: location_city,
-            state: location_state,
-            zip: location_zip
-          }
-        }
+        status_description: status,
+        carrier_status_description: status_details,
+        estimated_delivery_date: eta,
+        events
       }
     } = tracking_update
 
@@ -117,16 +105,15 @@ module.exports = cors(async (req, res) => {
             type: 'shipping-status-change',
             description:
               status === 'DELIVERED' ? 'Order Delivered' : 'Shipping Update',
-            created_at: moment(status_date),
+            created_at: moment(),
             properties: {
-              'Shipping Carrier': carrier,
-              'Tracking Status': status, //TODO: format case
+              'Tracking Status': status,
               'Order ID': order_id,
               'Tracking Number': tracking_number,
               'Service Type': service_type,
               'Estimated Delivery': moment(eta).format('MM/DD/YYYY'),
-              'Tracking Notes': status_details,
-              'Tracking Location': `${location_city}, ${location_state} ${location_zip}`
+              'Tracking Notes': status_details
+              // 'Tracking Location': `${location_city}, ${location_state} ${location_zip}`
             }
           }
         }

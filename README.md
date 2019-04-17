@@ -4,13 +4,13 @@
 
 > Add a Zendesk Sunshine Event whenever a Shipping Status change is triggered in ShipEngine
 
-Asynchronous microservice that is triggered by [ShipEngine](https://www.shipengine.com/) webhooks to create a Sunshine Event inside of [Zendesk](https://zendesk.com).
+Asynchronous microservice that is triggered by [ShipEngine](https://www.shipengine.com) webhooks to create a Sunshine Event inside of [Zendesk](https://zendesk.com).
 
 Built with [Micro](https://github.com/zeit/micro)! 🤩
 
 ## 🛠 Setup
 
-Both a [Zendesk](https://zendesk.com) _and_ [ShipEngine](https://www.shipengine.com/) account are needed for this to function.
+Both a [Zendesk](https://zendesk.com) _and_ [ShipEngine](https://www.shipengine.com) account are needed for this to function.
 
 Create a `.env` at the project root with the following credentials:
 
